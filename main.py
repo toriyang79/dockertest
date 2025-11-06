@@ -173,6 +173,36 @@ async def delete_user(user_id: int):
     
     raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다")
 
+# app/main.py
+from fastapi import FastAPI, status
+from fastapi.responses import JSONResponse
+import os
+
+app = FastAPI()
+
+@app.get("/health", 
+         status_code=status.HTTP_200_OK,
+         tags=["Health Check"])
+async def health_check():
+    """
+    컨테이너 헬스체크 엔드포인트
+    
+    Docker HEALTHCHECK에서 호출됨.
+    애플리케이션의 기본 상태를 확인하고,
+    필요시 데이터베이스 연결 등 추가 체크 가능.
+    
+    Returns:
+        JSONResponse: 상태 정보
+    """
+    return JSONResponse(
+        content={
+            "status": "healthy",
+            "service": "fastapi",
+            "version": "2.0.0",
+            "environment": os.getenv("ENVIRONMENT", "development")
+        }
+    )
+    
 # 직접 실행 시 (개발 환경)
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
