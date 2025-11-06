@@ -1,0 +1,11 @@
+# FastAPI 프레임워크 - 최신 버전 (2025년 기준)
+fastapi[standard]==0.115.0
+
+# ASGI 서버 - FastAPI 실행에 필요
+uvicorn[standard]==0.32.0
+
+# 이메일 검증을 위한 라이브러리
+email-validator==2.2.0
+
+# Pydantic - 데이터 검증 (FastAPI가 자동으로 설치하지만 명시)
+pydantic==2.9.2
